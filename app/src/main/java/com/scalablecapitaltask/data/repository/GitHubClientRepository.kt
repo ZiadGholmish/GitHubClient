@@ -10,7 +10,7 @@ import com.scalablecapitaltask.data.remote.network.RemoteDataSource
  * Created by ziadgholmish on 3/1/18.
  */
 class GitHubClientRepository(private val remoteDataSource: RemoteDataSource,
-                             val localDataSource: LocalDataSource) : GitHubClientDataSource {
+                             private val localDataSource: LocalDataSource) : GitHubClientDataSource {
 
     companion object {
         private var instance: GitHubClientRepository? = null

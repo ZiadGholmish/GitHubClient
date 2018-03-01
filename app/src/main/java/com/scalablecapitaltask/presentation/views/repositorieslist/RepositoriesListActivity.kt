@@ -12,29 +12,30 @@ import com.scalablecapitaltask.data.repository.GitHubClientRepository
 import com.scalablecapitaltask.utils.DependencyUtil
 import kotlinx.android.synthetic.main.activity_repositories_list_acitivty.*
 
-class RepositoriesListActivity : AppCompatActivity() {
+class RepositoriesListActivity : AppCompatActivity(), RepositoriesListContract.View {
+
+    private var mPresenter: RepositoriesListPresenter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_repositories_list_acitivty)
+        mPresenter = RepositoriesListPresenter(applicationContext)
+        mPresenter?.attachView(this)
+    }
 
-        val gitHubClientRepository = DependencyUtil.provideGitHubRepository(applicationContext)
-        gitHubClientRepository.getRepositories(object : LoadRepositoriesCallback {
-            override fun onRepositoriesLoaded(repos: List<Repository>) {
-                var builder = StringBuilder()
-                repos.forEach {
-                    Log.e("repo name", it.name)
-                    builder.append(it.name)
-                }
-                repo_names.text = builder.toString()
-            }
+    override fun showError() {
+    }
 
-            override fun onError() {
-            }
+    override fun showNoData() {
+    }
 
-            override fun onDataNotAvailable() {
-            }
-        })
+    override fun showRepositories(repos: List<Repository>) {
+    }
+
+    override fun showLoading() {
+    }
+
+    override fun hideLoading() {
     }
 
 }
