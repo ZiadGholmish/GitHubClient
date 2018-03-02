@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     app:behavior_overlapTop="64dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/repositories_recycler"
         android:layout_width="match_parent"
@@ -25,8 +26,10 @@
         android:id="@+id/tv_empty_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_margin"
         android:text="@string/no_data_available"
         android:textSize="@dimen/font_medium_size"
+        android:gravity="center"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

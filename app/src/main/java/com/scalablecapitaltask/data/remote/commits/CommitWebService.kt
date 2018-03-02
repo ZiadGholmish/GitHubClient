@@ -23,16 +23,19 @@ class CommitWebService(private val callback: LoadCommitsCallback, private val us
 
     private val json = Gson()
 
-    override fun doInBackground(vararg p0: String?): List<CommitEntity> {
+    override fun doInBackground(vararg p0: String?): List<CommitEntity>? {
         val url = URL("https://api.github.com/repos/$userName/$repoName/commits")
         val urlConnection = url.openConnection() as HttpURLConnection
         try {
             val inputStream = BufferedInputStream(urlConnection.inputStream)
             val repositoriesJsonArray = readStream(inputStream as InputStream)
             return convertJsonToDataClass(repositoriesJsonArray)
+        } catch (ex: Exception) {
+            ex.printStackTrace()
         } finally {
             urlConnection.disconnect()
         }
+        return null
     }
 
     override fun onPostExecute(result: List<CommitEntity>?) {
@@ -49,7 +52,7 @@ class CommitWebService(private val callback: LoadCommitsCallback, private val us
     }
 
     private fun convertJsonToDataClass(response: String): List<CommitEntity> {
-        Log.e("Commit now " , "1")
+        Log.e("Commit now ", "1")
         val commitsListType = object : TypeToken<ArrayList<CommitEntity>>() {}.type
         return json.fromJson(response, commitsListType)
     }

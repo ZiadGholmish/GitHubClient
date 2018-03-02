@@ -16,35 +16,20 @@ import com.scalablecapitaltask.utils.GithubDateUtils
 /**
  * Created by ziadgholmish on 3/2/18.
  */
-class RepositoriesAdapter(private val repos: List<RepositoryModel>, val context: Context) : RecyclerView.Adapter<RepositoriesAdapter.ViewHolder>() {
+class RepositoriesAdapter(private val repos: List<RepositoryModel>, val context: Context) : RecyclerView.Adapter<RepositoryViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepositoryViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return ViewHolder(layoutInflater.inflate(R.layout.repo_item_layout, parent, false))
+        val view = layoutInflater.inflate(R.layout.repo_item_layout, parent, false)
+        return RepositoryViewHolder(view, context)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val currentRepo = repos[holder.adapterPosition]
-        holder.tvRepoName.text = currentRepo.full_name
-        holder.tvRepoDesc.text = currentRepo.description
-        holder.tvRepoLangName.text = currentRepo.language
-        holder.tvRepoLastUpdated.text = String.format(context.getString(R.string.updated_at_string), GithubDateUtils.getFormattedDate(currentRepo.updated_at))
-
-        if (currentRepo.commit != null) {
-            holder.tvRepoLastCommit.text = currentRepo.commit?.commit?.message
-        }
+    override fun onBindViewHolder(holder: RepositoryViewHolder, position: Int) {
+        holder.bindData(repos[holder.adapterPosition])
     }
 
     override fun getItemCount(): Int {
         return repos.size
-    }
-
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val tvRepoName: TextView = view?.findViewById(R.id.tv_repo_name)
-        val tvRepoDesc: TextView = view?.findViewById(R.id.tv_repo_desc)
-        val tvRepoLangName: TextView = view?.findViewById(R.id.tv_repo_lang_name)
-        val tvRepoLastUpdated: TextView = view?.findViewById(R.id.tv_repo_last_updated)
-        val tvRepoLastCommit: TextView = view?.findViewById(R.id.tv_repo_last_commit)
     }
 
     fun updateRepoWithCommit(position: Int, commitEntity: CommitEntity) {
