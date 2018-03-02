@@ -22,5 +22,5 @@ data class Owner(
         @SerializedName("events_url") val events_url: String,
         @SerializedName("received_events_url") val received_events_url: String,
         @SerializedName("type") val type: String,
-        @SerializedName("site_admin") val site_admin: Int
+        @SerializedName("site_admin") val site_admin: Boolean
 )

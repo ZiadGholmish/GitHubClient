@@ -2,6 +2,7 @@ package com.scalablecapitaltask.data.models
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
+import android.support.annotation.Nullable
 import com.scalablecapitaltask.constants.DataBaseConstants
 
 /**
@@ -13,7 +14,8 @@ data class Repository(
         @PrimaryKey val id: Int,
         val name: String,
         val full_name: String,
-        //var owner: Owner,
+        var owner: Owner,
+        val description: String?,
         val private: Boolean,
         val html_url: String,
         val fork: Boolean,

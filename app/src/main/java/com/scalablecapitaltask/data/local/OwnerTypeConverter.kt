@@ -3,7 +3,8 @@ package com.scalablecapitaltask.data.local
 import android.arch.persistence.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import java.security.acl.Owner
+import com.scalablecapitaltask.data.models.Owner
+
 import java.util.*
 
 /**

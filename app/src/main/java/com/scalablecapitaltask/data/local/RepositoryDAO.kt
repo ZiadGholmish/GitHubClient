@@ -20,7 +20,6 @@ interface RepositoryDAO {
     @Update
     fun updateRepository(repository: Repository): Int
 
-
     @Query("DELETE FROM ${DataBaseConstants.REPOSITORY_TABLE_NAME}")
     fun deleteTasks()
 

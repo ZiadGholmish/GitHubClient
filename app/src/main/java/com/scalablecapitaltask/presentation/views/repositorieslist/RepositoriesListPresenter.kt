@@ -18,16 +18,20 @@ class RepositoriesListPresenter(context: Context) : AbsPresenter<RepositoriesLis
     private val gitHubClientRepository = DependencyUtil.provideGitHubRepository(context)
 
     override fun getRepositories() {
+        mView?.showLoading()
         gitHubClientRepository.getRepositories(object : LoadRepositoriesCallback {
             override fun onRepositoriesLoaded(repos: List<Repository>) {
+                mView?.hideLoading()
                 mView?.showRepositories(repos)
             }
 
             override fun onError() {
-                mView?.showError()
+                mView?.hideLoading()
+                mView?.showError("")
             }
 
             override fun onDataNotAvailable() {
+                mView?.hideLoading()
                 mView?.showNoData()
             }
         })

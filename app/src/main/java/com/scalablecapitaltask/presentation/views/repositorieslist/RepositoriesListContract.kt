@@ -13,7 +13,7 @@ interface RepositoriesListContract {
 
         fun hideLoading()
 
-        fun showError()
+        fun showError(errorMessage: String)
 
         fun showNoData()
 

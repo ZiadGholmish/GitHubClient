@@ -25,21 +25,23 @@ class LocalDataSource(private val appExecutors: AppExecutors, private val reposi
         checkNotNull(callback)
         val runnable = Runnable {
             val repositories = repositoryDAO.getRepositories()
-            appExecutors.mainThread.execute({
-                if (!repositories.isEmpty()) {
-                    callback.onRepositoriesLoaded(repositories)
-                } else {
-                    callback.onDataNotAvailable()
-                }
-            })
+            appExecutors.mainThread.execute(
+                    {
+                        if (!repositories.isEmpty()) {
+                            callback.onRepositoriesLoaded(repositories)
+                        } else {
+                            callback.onDataNotAvailable()
+                        }
+                    }
+            )
         }
         appExecutors.diskIO.execute(runnable)
     }
 
     override fun saveRepositories(repositories: List<Repository>) {
         val runnable = Runnable {
-            repositories.forEach {
-                repositoryDAO.insertRepository(it)
+            repositories.forEach { repository ->
+                repositoryDAO.insertRepository(repository)
             }
         }
         appExecutors.diskIO.execute(runnable)
