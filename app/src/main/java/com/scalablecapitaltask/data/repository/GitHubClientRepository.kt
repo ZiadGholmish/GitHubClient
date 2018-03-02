@@ -1,16 +1,18 @@
 package com.scalablecapitaltask.data.repository
 
-import android.util.Log
 import com.scalablecapitaltask.data.LoadRepositoriesCallback
 import com.scalablecapitaltask.data.local.LocalDataSource
-import com.scalablecapitaltask.data.models.Repository
+import com.scalablecapitaltask.data.mapper.RepositoryEntityToModelMapper
+import com.scalablecapitaltask.data.models.RepositoryEntity
 import com.scalablecapitaltask.data.remote.network.RemoteDataSource
+import com.scalablecapitaltask.domain.DomainRepo
+import com.scalablecapitaltask.domain.FetchRepositoriesCallback
 
 /**
  * Created by ziadgholmish on 3/1/18.
  */
 class GitHubClientRepository(private val remoteDataSource: RemoteDataSource,
-                             private val localDataSource: LocalDataSource) : GitHubClientDataSource {
+                             private val localDataSource: LocalDataSource) : DomainRepo {
 
     companion object {
         private var instance: GitHubClientRepository? = null
@@ -23,11 +25,11 @@ class GitHubClientRepository(private val remoteDataSource: RemoteDataSource,
         }
     }
 
-    override fun getRepositories(callback: LoadRepositoriesCallback) {
+    override fun getRepositories(callback: FetchRepositoriesCallback) {
         checkNotNull(callback)
         localDataSource.getRepositories(object : LoadRepositoriesCallback {
-            override fun onRepositoriesLoaded(repos: List<Repository>) {
-                callback.onRepositoriesLoaded(repos)
+            override fun onRepositoriesLoaded(repos: List<RepositoryEntity>) {
+                callback.onRepositoriesLoaded(repos.map { RepositoryEntityToModelMapper.transform(it) })
                 getRepositoriesFromRemoteDataSource(callback)
             }
 
@@ -41,21 +43,12 @@ class GitHubClientRepository(private val remoteDataSource: RemoteDataSource,
         })
     }
 
-    override fun saveRepositories(repositories: List<Repository>) {
-    }
-
-    override fun refreshRepositories() {
-    }
-
-    override fun deleteAllRepositories() {
-    }
-
-    private fun getRepositoriesFromRemoteDataSource(callback: LoadRepositoriesCallback) {
+    private fun getRepositoriesFromRemoteDataSource(callback: FetchRepositoriesCallback) {
         checkNotNull(callback)
         remoteDataSource.getRepositories(object : LoadRepositoriesCallback {
-            override fun onRepositoriesLoaded(repos: List<Repository>) {
+            override fun onRepositoriesLoaded(repos: List<RepositoryEntity>) {
                 localDataSource.saveRepositories(repos)
-                callback.onRepositoriesLoaded(repos)
+                callback.onRepositoriesLoaded(repos.map { RepositoryEntityToModelMapper.transform(it) })
             }
 
             override fun onError() {

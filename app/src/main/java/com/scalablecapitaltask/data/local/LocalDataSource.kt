@@ -1,8 +1,7 @@
 package com.scalablecapitaltask.data.local
 
 import com.scalablecapitaltask.data.LoadRepositoriesCallback
-import com.scalablecapitaltask.data.models.Repository
-import com.scalablecapitaltask.data.remote.network.RemoteDataSource
+import com.scalablecapitaltask.data.models.RepositoryEntity
 import com.scalablecapitaltask.data.repository.GitHubClientDataSource
 import com.scalablecapitaltask.utils.AppExecutors
 
@@ -38,7 +37,7 @@ class LocalDataSource(private val appExecutors: AppExecutors, private val reposi
         appExecutors.diskIO.execute(runnable)
     }
 
-    override fun saveRepositories(repositories: List<Repository>) {
+    override fun saveRepositories(repositories: List<RepositoryEntity>) {
         val runnable = Runnable {
             repositories.forEach { repository ->
                 repositoryDAO.insertRepository(repository)

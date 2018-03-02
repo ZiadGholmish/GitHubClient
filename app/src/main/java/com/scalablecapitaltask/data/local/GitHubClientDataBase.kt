@@ -6,12 +6,12 @@ import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
 import android.content.Context
 import com.scalablecapitaltask.constants.DataBaseConstants
-import com.scalablecapitaltask.data.models.Repository
+import com.scalablecapitaltask.data.models.RepositoryEntity
 
 /**
  * Created by ziadgholmish on 3/1/18.
  */
-@Database(entities = [Repository::class], version = 1)
+@Database(entities = [RepositoryEntity::class], version = 1)
 @TypeConverters(OwnerTypeConverter::class)
 abstract class GitHubClientDataBase : RoomDatabase() {
     abstract fun repositoryDAO(): RepositoryDAO

@@ -4,16 +4,10 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.View
 import com.scalablecapitaltask.R
-import com.scalablecapitaltask.data.LoadRepositoriesCallback
-import com.scalablecapitaltask.data.local.LocalDataSource
-import com.scalablecapitaltask.data.models.Repository
-import com.scalablecapitaltask.data.remote.network.RemoteDataSource
-import com.scalablecapitaltask.data.repository.GitHubClientRepository
-import com.scalablecapitaltask.utils.DependencyUtil
-import kotlinx.android.synthetic.main.activity_repositories_list_acitivty.*
+import com.scalablecapitaltask.data.models.RepositoryEntity
+import com.scalablecapitaltask.domain.models.RepositoryModel
 import kotlinx.android.synthetic.main.repositories_content_layout.*
 
 class RepositoriesListActivity : AppCompatActivity(), RepositoriesListContract.View {
@@ -38,7 +32,7 @@ class RepositoriesListActivity : AppCompatActivity(), RepositoriesListContract.V
         tv_empty_label.visibility = View.VISIBLE
     }
 
-    override fun showRepositories(repos: List<Repository>) {
+    override fun showRepositories(repos: List<RepositoryModel>) {
         val adapter = RepositoriesAdapter(repos , applicationContext)
         val layoutManager = LinearLayoutManager(applicationContext)
         layoutManager.orientation = LinearLayoutManager.VERTICAL

@@ -2,8 +2,7 @@ package com.scalablecapitaltask.data.local
 
 import android.arch.persistence.room.*
 import com.scalablecapitaltask.constants.DataBaseConstants
-import com.scalablecapitaltask.data.models.Repository
-import io.reactivex.Flowable
+import com.scalablecapitaltask.data.models.RepositoryEntity
 
 /**
  * Created by ziadgholmish on 3/1/18.
@@ -12,13 +11,13 @@ import io.reactivex.Flowable
 interface RepositoryDAO {
 
     @Query("SELECT * FROM ${DataBaseConstants.REPOSITORY_TABLE_NAME}")
-    fun getRepositories(): List<Repository>
+    fun getRepositories(): List<RepositoryEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertRepository(repository: Repository)
+    fun insertRepository(repository: RepositoryEntity)
 
     @Update
-    fun updateRepository(repository: Repository): Int
+    fun updateRepository(repository: RepositoryEntity): Int
 
     @Query("DELETE FROM ${DataBaseConstants.REPOSITORY_TABLE_NAME}")
     fun deleteTasks()

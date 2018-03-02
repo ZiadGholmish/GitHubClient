@@ -72,6 +72,20 @@
             card_view:layout_constraintTop_toBottomOf="@id/tv_repo_desc"
             tools:text="Last updated at" />
 
+
+        <TextView
+            android:id="@+id/tv_repo_last_commit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/generic_padding"
+            android:textColor="@color/colorLightGray"
+            android:textSize="@dimen/font_medium_size"
+            android:textStyle="bold"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@id/tv_repo_last_updated"
+            tools:text="Push the latest code" />
+
     </android.support.constraint.ConstraintLayout>
 
 </android.support.v7.widget.CardView>

@@ -8,13 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.scalablecapitaltask.R
-import com.scalablecapitaltask.data.models.Repository
+import com.scalablecapitaltask.data.models.RepositoryEntity
+import com.scalablecapitaltask.domain.models.RepositoryModel
 import com.scalablecapitaltask.utils.GithubDateUtils
 
 /**
  * Created by ziadgholmish on 3/2/18.
  */
-class RepositoriesAdapter(private val repos: List<Repository>, val context: Context) : RecyclerView.Adapter<RepositoriesAdapter.ViewHolder>() {
+class RepositoriesAdapter(private val repos: List<RepositoryModel>, val context: Context) : RecyclerView.Adapter<RepositoriesAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -26,7 +27,7 @@ class RepositoriesAdapter(private val repos: List<Repository>, val context: Cont
         holder.tvRepoName.text = currentRepo.full_name
         holder.tvRepoDesc.text = currentRepo.description
         holder.tvRepoLangName.text = currentRepo.language
-        holder.tvRepoLastUpdated.text = String.format(context.getString(R.string.updated_at_string) , GithubDateUtils.getFormattedDate(currentRepo.updated_at))
+        holder.tvRepoLastUpdated.text = String.format(context.getString(R.string.updated_at_string), GithubDateUtils.getFormattedDate(currentRepo.updated_at))
     }
 
     override fun getItemCount(): Int {
@@ -39,6 +40,6 @@ class RepositoriesAdapter(private val repos: List<Repository>, val context: Cont
         val tvRepoDesc: TextView = view?.findViewById(R.id.tv_repo_desc)
         val tvRepoLangName: TextView = view?.findViewById(R.id.tv_repo_lang_name)
         val tvRepoLastUpdated: TextView = view?.findViewById(R.id.tv_repo_last_updated)
-
+        val tvRepoLastCommit: TextView = view?.findViewById(R.id.tv_repo_last_commit)
     }
 }

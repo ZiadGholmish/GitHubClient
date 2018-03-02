@@ -1,8 +1,7 @@
 package com.scalablecapitaltask.data.remote.network
 
 import com.scalablecapitaltask.data.LoadRepositoriesCallback
-import com.scalablecapitaltask.data.local.GitHubClientDataBase
-import com.scalablecapitaltask.data.models.Repository
+import com.scalablecapitaltask.data.models.RepositoryEntity
 import com.scalablecapitaltask.data.repository.GitHubClientDataSource
 
 /**
@@ -24,7 +23,7 @@ class RemoteDataSource : GitHubClientDataSource {
         RepositoriesWebService(callback).execute()
     }
 
-    override fun saveRepositories(repositories: List<Repository>) {
+    override fun saveRepositories(repositories: List<RepositoryEntity>) {
     }
     override fun refreshRepositories() {
     }
