@@ -1,4 +1,4 @@
-package com.scalablecapitaltask.data.remote.network
+package com.scalablecapitaltask.data.remote.repositories
 
 import android.os.AsyncTask
 import com.scalablecapitaltask.constants.APIConstants
@@ -18,16 +18,19 @@ class RepositoriesWebService(private val callback: LoadRepositoriesCallback) : A
 
     private val json = Gson()
 
-    override fun doInBackground(vararg p0: String?): List<RepositoryEntity> {
+    override fun doInBackground(vararg p0: String?): List<RepositoryEntity>? {
         val url = URL("${APIConstants.BASE_URL}${APIConstants.PROVINCES_PREFIX}")
         val urlConnection = url.openConnection() as HttpURLConnection
         try {
             val inputStream = BufferedInputStream(urlConnection.inputStream)
             val repositoriesJsonArray = readStream(inputStream as InputStream)
             return convertJsonToDataClass(repositoriesJsonArray)
+        } catch (ex: FileNotFoundException) {
+            ex.printStackTrace()
         } finally {
             urlConnection.disconnect()
         }
+        return null
     }
 
     override fun onPostExecute(result: List<RepositoryEntity>?) {

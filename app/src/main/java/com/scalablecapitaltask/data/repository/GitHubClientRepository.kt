@@ -1,12 +1,14 @@
 package com.scalablecapitaltask.data.repository
 
+import com.scalablecapitaltask.data.LoadCommitsCallback
 import com.scalablecapitaltask.data.LoadRepositoriesCallback
 import com.scalablecapitaltask.data.local.LocalDataSource
 import com.scalablecapitaltask.data.mapper.RepositoryEntityToModelMapper
+import com.scalablecapitaltask.data.models.CommitEntity
 import com.scalablecapitaltask.data.models.RepositoryEntity
-import com.scalablecapitaltask.data.remote.network.RemoteDataSource
-import com.scalablecapitaltask.domain.DomainRepo
-import com.scalablecapitaltask.domain.FetchRepositoriesCallback
+import com.scalablecapitaltask.data.remote.RemoteDataSource
+import com.scalablecapitaltask.domain.repository.DomainRepo
+import com.scalablecapitaltask.domain.callbacks.FetchRepositoriesCallback
 
 /**
  * Created by ziadgholmish on 3/1/18.
@@ -61,5 +63,27 @@ class GitHubClientRepository(private val remoteDataSource: RemoteDataSource,
         })
     }
 
+    override fun getCommits(callback: LoadCommitsCallback, userName: String, repoName: String) {
+        checkNotNull(callback)
+        checkNotNull(userName)
+        checkNotNull(repoName)
+        remoteDataSource.getCommits(object : LoadCommitsCallback {
+            override fun onCommitsLoaded(commits: List<CommitEntity>) {
+                if (!commits.isEmpty()) {
+                    callback.onCommitsLoaded(commits)
+                } else {
+                    callback.onDataNotAvailable()
+                }
+            }
+
+            override fun onError() {
+                callback.onError()
+            }
+
+            override fun onDataNotAvailable() {
+                callback.onDataNotAvailable()
+            }
+        }, userName, repoName)
+    }
 
 }

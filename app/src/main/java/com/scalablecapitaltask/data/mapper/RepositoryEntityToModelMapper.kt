@@ -26,7 +26,8 @@ class RepositoryEntityToModelMapper {
                     repositoryEntity.owner.avatar_url,
                     repositoryEntity.owner.gravatar_id,
                     repositoryEntity.owner.url,
-                    repositoryEntity.owner.repos_url)
+                    repositoryEntity.owner.repos_url
+                    , null)
             return repositoryModel
         }
     }

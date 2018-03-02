@@ -1,5 +1,7 @@
 package com.scalablecapitaltask.domain.models
 
+import com.scalablecapitaltask.data.models.CommitEntity
+
 /**
  * Created by ziadgholmish on 3/2/18.
  */
@@ -17,4 +19,6 @@ data class RepositoryModel(
         val owner_avatar_url: String,
         val owner_gravatar_id: String,
         val owner_url: String,
-        val owner_repos_url: String)
+        val owner_repos_url: String ,
+        var commit: CommitEntity?
+        )

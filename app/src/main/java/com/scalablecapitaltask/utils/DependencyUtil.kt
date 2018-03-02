@@ -3,7 +3,7 @@ package com.scalablecapitaltask.utils
 import android.content.Context
 import com.scalablecapitaltask.data.local.GitHubClientDataBase
 import com.scalablecapitaltask.data.local.LocalDataSource
-import com.scalablecapitaltask.data.remote.network.RemoteDataSource
+import com.scalablecapitaltask.data.remote.RemoteDataSource
 import com.scalablecapitaltask.data.repository.GitHubClientRepository
 
 /**

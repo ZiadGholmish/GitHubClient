@@ -1,5 +1,7 @@
 package com.scalablecapitaltask.presentation.views.repositorieslist
 
+import com.scalablecapitaltask.data.models.CommitEntity
+import com.scalablecapitaltask.data.models.CommitInfo
 import com.scalablecapitaltask.data.models.RepositoryEntity
 import com.scalablecapitaltask.domain.models.RepositoryModel
 
@@ -19,6 +21,9 @@ interface RepositoriesListContract {
         fun showNoData()
 
         fun showRepositories(repos: List<RepositoryModel>)
+
+        fun notifyAdapterForCommitAdded(position: Int, commitEntity: CommitEntity)
+
     }
 
     interface Actions {

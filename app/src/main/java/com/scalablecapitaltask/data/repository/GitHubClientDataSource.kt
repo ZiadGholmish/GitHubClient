@@ -1,5 +1,6 @@
 package com.scalablecapitaltask.data.repository
 
+import com.scalablecapitaltask.data.LoadCommitsCallback
 import com.scalablecapitaltask.data.LoadRepositoriesCallback
 import com.scalablecapitaltask.data.models.RepositoryEntity
 
@@ -16,4 +17,6 @@ interface GitHubClientDataSource {
     fun refreshRepositories()
 
     fun deleteAllRepositories()
+
+    fun getCommits(callback: LoadCommitsCallback, userName: String, repoName: String)
 }

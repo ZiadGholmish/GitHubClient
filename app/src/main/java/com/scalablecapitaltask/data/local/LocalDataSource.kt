@@ -1,5 +1,6 @@
 package com.scalablecapitaltask.data.local
 
+import com.scalablecapitaltask.data.LoadCommitsCallback
 import com.scalablecapitaltask.data.LoadRepositoriesCallback
 import com.scalablecapitaltask.data.models.RepositoryEntity
 import com.scalablecapitaltask.data.repository.GitHubClientDataSource
@@ -44,6 +45,9 @@ class LocalDataSource(private val appExecutors: AppExecutors, private val reposi
             }
         }
         appExecutors.diskIO.execute(runnable)
+    }
+
+    override fun getCommits(callback: LoadCommitsCallback, userName: String, repoName: String) {
     }
 
     override fun refreshRepositories() {

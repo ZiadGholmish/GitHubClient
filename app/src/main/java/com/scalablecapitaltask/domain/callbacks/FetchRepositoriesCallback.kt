@@ -1,4 +1,4 @@
-package com.scalablecapitaltask.domain
+package com.scalablecapitaltask.domain.callbacks
 
 import com.scalablecapitaltask.data.models.RepositoryEntity
 import com.scalablecapitaltask.domain.models.RepositoryModel

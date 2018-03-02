@@ -1,7 +1,10 @@
-package com.scalablecapitaltask.data.remote.network
+package com.scalablecapitaltask.data.remote
 
+import com.scalablecapitaltask.data.LoadCommitsCallback
 import com.scalablecapitaltask.data.LoadRepositoriesCallback
 import com.scalablecapitaltask.data.models.RepositoryEntity
+import com.scalablecapitaltask.data.remote.commits.CommitWebService
+import com.scalablecapitaltask.data.remote.repositories.RepositoriesWebService
 import com.scalablecapitaltask.data.repository.GitHubClientDataSource
 
 /**
@@ -23,11 +26,17 @@ class RemoteDataSource : GitHubClientDataSource {
         RepositoriesWebService(callback).execute()
     }
 
+    override fun getCommits(callback: LoadCommitsCallback, userName: String, repoName: String) {
+        CommitWebService(callback, userName, repoName).execute()
+    }
+
     override fun saveRepositories(repositories: List<RepositoryEntity>) {
     }
+
     override fun refreshRepositories() {
     }
 
     override fun deleteAllRepositories() {
     }
+
 }
