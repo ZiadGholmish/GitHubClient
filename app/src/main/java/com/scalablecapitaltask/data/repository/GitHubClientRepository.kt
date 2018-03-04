@@ -50,7 +50,7 @@ class GitHubClientRepository(private val remoteDataSource: RemoteDataSource,
         remoteDataSource.getRepositories(object : LoadRepositoriesCallback {
             override fun onRepositoriesLoaded(repos: List<RepositoryEntity>) {
                 localDataSource.saveRepositories(repos)
-                getRepositories(callback)
+                callback.onRepositoriesLoaded(repos.map { RepositoryEntityToModelMapper.transform(it) })
             }
 
             override fun onError(throwable: Throwable) {

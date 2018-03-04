@@ -3,4 +3,6 @@
     <string name="no_data_available">Sorry, there is no data available now. please try again later</string>
 
     <string name="updated_at_string">Updated on %1$s</string>
+    <string name="latest_commit_label">Latest commit</string>
+
 </resources>

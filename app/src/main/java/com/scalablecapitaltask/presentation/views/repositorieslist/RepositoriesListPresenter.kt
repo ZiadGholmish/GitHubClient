@@ -26,9 +26,9 @@ class RepositoriesListPresenter(private val context: Context) : AbsPresenter<Rep
                 loadCommits(mRepos)
             }
 
-            override fun onError() {
+            override fun onError(throwable: Throwable) {
                 mView?.hideLoading()
-                mView?.showError("")
+                mView?.showError(throwable.localizedMessage)
             }
 
             override fun onDataNotAvailable() {
@@ -45,7 +45,7 @@ class RepositoriesListPresenter(private val context: Context) : AbsPresenter<Rep
                     updateRepoWithLastCommit(commits.first())
                 }
 
-                override fun onError() {
+                override fun onError(throwable: Throwable) {
                 }
 
                 override fun onDataNotAvailable() {
