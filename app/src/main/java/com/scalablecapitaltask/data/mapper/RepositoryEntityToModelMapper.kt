@@ -9,9 +9,12 @@ import java.util.ArrayList
  */
 class RepositoryEntityToModelMapper {
     companion object {
+        /**
+         * transfer repository entity that come from data layer to the domain model
+         * and format data required
+         */
         fun transform(repositoryEntity: RepositoryEntity): RepositoryModel {
-            val desc = if (repositoryEntity.description != null)
-                repositoryEntity.description!! else ""
+            val desc = repositoryEntity.description ?: ""
             var repositoryModel = RepositoryModel(
                     repositoryEntity.name,
                     repositoryEntity.full_name,

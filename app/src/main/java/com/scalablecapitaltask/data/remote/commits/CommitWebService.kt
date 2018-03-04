@@ -40,10 +40,12 @@ class CommitWebService(private val callback: LoadCommitsCallback, private val us
 
     override fun onPostExecute(result: List<CommitEntity>?) {
         super.onPostExecute(result)
-        if (result != null && !result.isEmpty()) {
-            callback.onCommitsLoaded(result)
-        } else {
-            callback.onDataNotAvailable()
+        if (result != null) {
+            if (!result.isEmpty()) {
+                callback.onCommitsLoaded(result)
+            } else {
+                callback.onDataNotAvailable()
+            }
         }
     }
 
@@ -52,7 +54,6 @@ class CommitWebService(private val callback: LoadCommitsCallback, private val us
     }
 
     private fun convertJsonToDataClass(response: String): List<CommitEntity> {
-        Log.e("Commit now ", "1")
         val commitsListType = object : TypeToken<ArrayList<CommitEntity>>() {}.type
         return json.fromJson(response, commitsListType)
     }

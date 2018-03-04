@@ -39,7 +39,7 @@ class RepositoriesListPresenter(private val context: Context) : AbsPresenter<Rep
     }
 
     private fun loadCommits(repos: List<RepositoryModel>) {
-        repos.forEach {
+        repos.forEach { repository ->
             GetCommitsUseCase(context).getCommits(object : LoadCommitsCallback {
                 override fun onCommitsLoaded(commits: List<CommitEntity>) {
                     updateRepoWithLastCommit(commits.first())
@@ -50,7 +50,7 @@ class RepositoriesListPresenter(private val context: Context) : AbsPresenter<Rep
 
                 override fun onDataNotAvailable() {
                 }
-            }, it.owner_login, it.name)
+            }, repository.owner_login, repository.name)
         }
     }
 

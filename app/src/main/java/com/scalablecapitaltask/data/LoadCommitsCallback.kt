@@ -8,9 +8,18 @@ import com.scalablecapitaltask.data.models.RepositoryEntity
  */
 interface LoadCommitsCallback {
 
+    /**
+     * called when there is data to show
+     */
     fun onCommitsLoaded(commits: List<CommitEntity>)
 
-    fun onError()
+    /**
+     * when error occurred
+     */
+    fun onError(throwable: Throwable)
 
+    /**
+     * will be called when there is no data
+     */
     fun onDataNotAvailable()
 }

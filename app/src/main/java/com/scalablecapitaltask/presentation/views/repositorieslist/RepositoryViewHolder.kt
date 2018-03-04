@@ -21,18 +21,17 @@ class RepositoryViewHolder(view: View, private val context: Context) : RecyclerV
 
     fun bindData(repository: RepositoryModel) {
         tvRepoName.text = repository.name
+        tvRepoLangName.text = repository.language
+        tvRepoLastUpdated.text = String.format(context.getString(R.string.updated_at_string),
+                GithubDateUtils.getFormattedDate(repository.updated_at))
+        if (repository.commit != null) {
+            tvRepoLastCommit.text = repository.commit?.commit?.message
+        }
         if (repository.description.isNotBlank()) {
             tvRepoDesc.visibility = View.VISIBLE
             tvRepoDesc.text = repository.description
         } else {
             tvRepoDesc.visibility = View.GONE
-        }
-        tvRepoLangName.text = repository.language
-        tvRepoLastUpdated.text = String.format(context.getString(R.string.updated_at_string),
-                GithubDateUtils.getFormattedDate(repository.updated_at))
-
-        if (repository.commit != null) {
-            tvRepoLastCommit.text = repository.commit?.commit?.message
         }
     }
 }

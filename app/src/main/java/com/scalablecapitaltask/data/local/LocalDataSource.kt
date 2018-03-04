@@ -11,6 +11,9 @@ import com.scalablecapitaltask.utils.AppExecutors
  */
 class LocalDataSource(private val appExecutors: AppExecutors, private val repositoryDAO: RepositoryDAO) : GitHubClientDataSource {
 
+    /**
+     * get one instance from local data source, i can use dagger2 here to manage the dependencies
+     */
     companion object {
         private var instance: LocalDataSource? = null
         fun getLocalInstance(appExecutors: AppExecutors, repositoryDAO: RepositoryDAO): LocalDataSource {
@@ -21,6 +24,10 @@ class LocalDataSource(private val appExecutors: AppExecutors, private val reposi
         }
     }
 
+    /**
+     * get the available repositories from the local database in background thread
+     * then populate the results in the main thread
+     */
     override fun getRepositories(callback: LoadRepositoriesCallback) {
         checkNotNull(callback)
         val runnable = Runnable {
@@ -38,6 +45,9 @@ class LocalDataSource(private val appExecutors: AppExecutors, private val reposi
         appExecutors.diskIO.execute(runnable)
     }
 
+    /**
+     * save the repositories in the database and update the old data
+     */
     override fun saveRepositories(repositories: List<RepositoryEntity>) {
         val runnable = Runnable {
             repositories.forEach { repository ->
@@ -47,6 +57,9 @@ class LocalDataSource(private val appExecutors: AppExecutors, private val reposi
         appExecutors.diskIO.execute(runnable)
     }
 
+    /**
+     * we do not use it here as for now we do not save the commits for the repository
+     */
     override fun getCommits(callback: LoadCommitsCallback, userName: String, repoName: String) {
     }
 

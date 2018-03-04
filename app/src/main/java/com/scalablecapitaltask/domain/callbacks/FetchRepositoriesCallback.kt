@@ -10,7 +10,7 @@ interface FetchRepositoriesCallback {
 
     fun onRepositoriesLoaded(repos: List<RepositoryModel>)
 
-    fun onError()
+    fun onError(throwable: Throwable)
 
     fun onDataNotAvailable()
 }

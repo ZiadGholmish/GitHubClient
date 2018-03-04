@@ -7,14 +7,14 @@ import com.scalablecapitaltask.data.mapper.RepositoryEntityToModelMapper
 import com.scalablecapitaltask.data.models.CommitEntity
 import com.scalablecapitaltask.data.models.RepositoryEntity
 import com.scalablecapitaltask.data.remote.RemoteDataSource
-import com.scalablecapitaltask.domain.repository.DomainRepo
+import com.scalablecapitaltask.domain.repository.GitHubClientDomainRepository
 import com.scalablecapitaltask.domain.callbacks.FetchRepositoriesCallback
 
 /**
  * Created by ziadgholmish on 3/1/18.
  */
 class GitHubClientRepository(private val remoteDataSource: RemoteDataSource,
-                             private val localDataSource: LocalDataSource) : DomainRepo {
+                             private val localDataSource: LocalDataSource) : GitHubClientDomainRepository {
 
     companion object {
         private var instance: GitHubClientRepository? = null
@@ -35,8 +35,8 @@ class GitHubClientRepository(private val remoteDataSource: RemoteDataSource,
                 getRepositoriesFromRemoteDataSource(callback)
             }
 
-            override fun onError() {
-                callback.onError()
+            override fun onError(throwable: Throwable) {
+                callback.onError(throwable)
             }
 
             override fun onDataNotAvailable() {
@@ -50,11 +50,11 @@ class GitHubClientRepository(private val remoteDataSource: RemoteDataSource,
         remoteDataSource.getRepositories(object : LoadRepositoriesCallback {
             override fun onRepositoriesLoaded(repos: List<RepositoryEntity>) {
                 localDataSource.saveRepositories(repos)
-                callback.onRepositoriesLoaded(repos.map { RepositoryEntityToModelMapper.transform(it) })
+                getRepositories(callback)
             }
 
-            override fun onError() {
-                callback.onError()
+            override fun onError(throwable: Throwable) {
+                callback.onError(throwable)
             }
 
             override fun onDataNotAvailable() {
@@ -76,8 +76,8 @@ class GitHubClientRepository(private val remoteDataSource: RemoteDataSource,
                 }
             }
 
-            override fun onError() {
-                callback.onError()
+            override fun onError(throwable: Throwable) {
+                callback.onError(throwable)
             }
 
             override fun onDataNotAvailable() {

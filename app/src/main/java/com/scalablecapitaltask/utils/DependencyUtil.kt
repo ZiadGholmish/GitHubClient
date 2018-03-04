@@ -12,6 +12,9 @@ import com.scalablecapitaltask.data.repository.GitHubClientRepository
 class DependencyUtil {
 
     companion object {
+        /**
+         * provide the repository dependency when required for other classes
+         */
         fun provideGitHubRepository(context: Context): GitHubClientRepository {
             checkNotNull(context)
             val database = GitHubClientDataBase.getInstance(context)

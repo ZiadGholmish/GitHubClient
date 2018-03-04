@@ -35,10 +35,12 @@ class RepositoriesWebService(private val callback: LoadRepositoriesCallback) : A
 
     override fun onPostExecute(result: List<RepositoryEntity>?) {
         super.onPostExecute(result)
-        if (result != null && !result.isEmpty()) {
-            callback.onRepositoriesLoaded(result)
-        } else {
-            callback.onDataNotAvailable()
+        if (result != null) {
+            if (!result.isEmpty()) {
+                callback.onRepositoriesLoaded(result)
+            } else {
+                callback.onDataNotAvailable()
+            }
         }
     }
 

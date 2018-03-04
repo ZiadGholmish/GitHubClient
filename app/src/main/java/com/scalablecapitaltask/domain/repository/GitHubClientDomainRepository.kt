@@ -7,7 +7,7 @@ import com.scalablecapitaltask.domain.callbacks.FetchRepositoriesCallback
  * Created by ziadgholmish on 3/2/18.
  */
 
-interface DomainRepo {
+interface GitHubClientDomainRepository {
 
     fun getRepositories(callback: FetchRepositoriesCallback)
 
