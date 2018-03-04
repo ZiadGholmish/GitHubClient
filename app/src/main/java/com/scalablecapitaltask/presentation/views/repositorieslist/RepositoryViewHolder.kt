@@ -20,7 +20,7 @@ class RepositoryViewHolder(view: View, private val context: Context) : RecyclerV
     private val tvRepoLastCommit: TextView = view?.findViewById(R.id.tv_repo_last_commit)
 
     fun bindData(repository: RepositoryModel) {
-        tvRepoName.text = repository.full_name
+        tvRepoName.text = repository.name
         if (repository.description.isNotBlank()) {
             tvRepoDesc.visibility = View.VISIBLE
             tvRepoDesc.text = repository.description

@@ -72,7 +72,6 @@
             card_view:layout_constraintTop_toBottomOf="@id/tv_repo_desc"
             tools:text="Last updated at" />
 
-
         <TextView
             android:id="@+id/tv_repo_last_commit"
             android:layout_width="match_parent"
